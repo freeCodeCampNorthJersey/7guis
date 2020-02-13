@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>7GUIs - Temperature Converter</title>
+  </head>
+  <body>
+    <div>
+      <input type="text" id="celsius" /> Celsius =
+      <input type="text" id="fahrenheit" /> Fahrenheit
+    </div>
+
+    <script>
+      let readInput;
+
+      let fahrenheitController = {
+        quantity: 0
+      };
+
+      document.querySelector('div').addEventListener('click', (e) => {
+        console.dir(e.target);
+        readInput = e.target.innerText;
+      });
+    </script>
+  </body>
+</html>
