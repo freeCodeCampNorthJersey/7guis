@@ -6,21 +6,44 @@
     <title>7GUIs - Temperature Converter</title>
   </head>
   <body>
+    <p id="error"></p>
+    
     <div>
       <input type="text" id="celsius" /> Celsius =
       <input type="text" id="fahrenheit" /> Fahrenheit
     </div>
 
     <script>
-      let readInput;
+      const toFahrenheit = (celTemp) => celTemp * 9/5 + 32
+      const toCelsius = (fahrenTemp) => (fahrenTemp - 32) * 5/9
 
-      let fahrenheitController = {
-        quantity: 0
+      const celsiusInput = document.querySelector('#celsius');
+      const fahrenheitInput = document.querySelector('#fahrenheit');
+
+      const setConvertedValue = (e, targetEl, converter) => {
+        const quantStr = e.target.value;
+        const quantInt = parseInt(quantStr, 10);
+          
+        if ( !isNaN(quantInt) ) {
+          document.querySelector('#error').innerHTML = '';
+          targetEl.value = Math.round(100 * converter(quantInt)) / 100;
+        } else {
+          document.querySelector('#error').innerHTML = 'Cannot convert a non-numeric value.';
+        }
       };
 
-      document.querySelector('div').addEventListener('click', (e) => {
-        console.dir(e.target);
-        readInput = e.target.innerText;
+      // celsius to fahrenheit
+      celsiusInput.addEventListener('click', (e) => {
+        e.target.addEventListener('change', (e) => {
+          setConvertedValue(e, fahrenheitInput, toFahrenheit);
+        });
+      });
+
+      // fahrenheit to celsius
+      fahrenheitInput.addEventListener('click', (e) => {
+        e.target.addEventListener('change', (e) => {
+          setConvertedValue(e, celsiusInput, toCelsius);
+        });
       });
     </script>
   </body>
